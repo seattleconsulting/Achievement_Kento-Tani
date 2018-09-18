@@ -121,11 +121,36 @@ Ruby on Railsによって作られるWebアプリケーションはMVCという�
 
 ![MVC](./memo_images/mvc.png)  
 
+### scaffoldとは
+Railsに用意されているジェネレータの1つで「足場」を意味する。  
+最低限のCRUDを自動で生成してくれる便利な機能。  
+コマンド1つで、コントローラー、モデル、ビュー、ルーティングを全て用意してくれる。  
+コマンドとしては、`$ rails g scaffold <モデル名 カラム名:型>`  
+
+### resourcesとは
+/config/routes.rbに記述するルーティングでresourceを用いると
+こちらも自動でCRUDを用意してくれる。  
+記述の仕方としては、
+`resources :<リソース名>`  
+
+### therubyracer gemとは
+therubyracerは、Javascriptの実行エンジンであるv8を叩ける用にしてくれるgemだ。Javascriptはwebの第一言語（英語みたいなもの)と言ってよく、開発・本番環境を問わず結局どこかで使うことになるので、rubyからもJavascriptを叩ける必要がある。  
+
+### mini_racer
+therubyracerの後継。  
+サーバーにnodeを入れて対応することも可能(execjsが検出してくれる）で、そちらのほうがパフォーマンスが良いことも十分ありえる（というかかなりある）ので、ベンチを取ってみて、工数見合いで各々検討願いたい。
+
+### db用語
+![db](./memo_images/db.png)  
 ***
 
-## ■　チートシート
+## ■　コマンドリファレンス
 
 ### Linuxコマンド集
+|コマンド|説明|  
+|:--|:--|  
+|`$ pwd`|現在作業中のディレクトリを表示|  
+
 * 現在作業中のディレクトリを表示  
 `$ pwd`  
 
@@ -175,9 +200,35 @@ Ruby on Railsによって作られるWebアプリケーションはMVCという�
 * コンテナを出る  
 `$ exit`  
 
-### railesコマンド集
+### railsコマンド集
+* model作製  
+`$ rails g model <モデル名 カラム名:型>`  
 
-### Gitコマンド集
+* コントローラー作製  
+`$ rails g controller <コントローラー名>`  
+※モデルの複数形で名付ける  
+
+* レコードの作成  
+`$ rails c`  
+`001:0> <モデル名> = <モデル名>.new(<カラム1: '内容',カラム2: '内容2>`  
+`002:0> <モデル名>.save`
+
+* カラムの追加  
+`rails generate migration <AddNewcolumnToClass カラム名:データ型>`  
+
+* カラムの削除  
+`rails generate migration <RemoveColumnFromClass カラム名:データ型>`  
+
+* マイグレーションスクリプトの削除  
+`rails destroy migration <クラス名>`  
+
+* データベースのテーブルの削除  
+`rails destroy migration <クラス名>`  
+
+* レコードの読み込み  
+`<モデル名>`
+
+## ■　Gitコマンド集
 * リポジトリを作成  
 `$ git init`  
 
@@ -230,9 +281,9 @@ Ruby on Railsによって作られるWebアプリケーションはMVCという�
 
 ### gemfile用語集
 
-***
+***  
 
-## ■　タスク管理ツール作製
+## ■　タスク管理ツール作製  
 Docker + Ruby + Rails + Vue.js + MySQLで開発環境を整える。  
 「Dockerfile」と「Docker-compose.yml」を作成して「Rails環境のコンテナ」と「MySQL環境のコンテナ」の２つをビルドできるようにする。  
 また、Gitでソースコード等の変更履歴を管理できるようにし、GitHubで保存、公開できるようにする。
